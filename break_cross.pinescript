@@ -1,0 +1,62 @@
+//@version=4
+// author: Eric Chou
+// cpchou0701@hotmail.com, cpchou0701@gmail.com
+
+study("Break+Cross",overlay=true)
+e1=ema(close,20)
+c1=sma(close,20)
+e2=ema(close,60)
+c2=sma(close,60)
+e3=ema(close,120)
+c3=sma(close,120)
+
+// 破線
+e20_crossover_m20() => crossover(e1, c1)
+e20_crossunder_m20() => crossunder(e1, c1)
+plotshape(e20_crossover_m20(), "向上破線", style=shape.arrowup, location=location.belowbar , text="破", color=color.black, transp=0)
+plotshape(e20_crossunder_m20(), "向下破線", style=shape.arrowdown, location=location.abovebar , text="破", color=color.black, transp=0)
+
+
+
+// 120均線拐頭
+ma120_crossup() => (c3 > c3[1] and c3[2] > c3[1]) // 120拐頭向上
+plotshape(ma120_crossup(), "120拐頭向上", style=shape.arrowup, location=location.belowbar , text="^\n^\n120拐", color=color.blue, transp=0, offset=0)
+ma120_crossdown() => (c3 < c3[1] and c3[2] < c3[1]) // 120拐頭向下
+plotshape(ma120_crossdown(), "120均線拐頭向下", style=shape.arrowdown, location=location.abovebar , text="120拐\nv\nv", color=color.blue, transp=0, offset=0)
+
+
+// 60均線拐頭
+ma60_crossup() => (c2 > c2[1]) and (c2[2] > c2[1]) // 60拐頭向上
+plotshape(ma60_crossup(), "60拐頭向上", style=shape.arrowup, location=location.belowbar , text="^\n60拐", color=#F48FB1, transp=0, offset=0)
+ma60_crossdown() => (c2 < c2[1]) and (c2[2] < c2[1]) // 60拐頭向下
+plotshape(ma60_crossdown(), "60拐頭向下", style=shape.arrowdown, location=location.abovebar , text="60拐\nv", color=#F48FB1, transp=0, offset=0)
+
+
+
+// 20均線拐頭
+ma20_crossup() => (c1 > c1[1] and c1[2]>c1[1]) // 20拐頭向上
+plotshape(ma20_crossup(), "20拐頭向上", style=shape.arrowup, location=location.belowbar , text="20拐", color=color.silver, textcolor=color.black, transp=0)
+ma20_crossdown() => (c1 < c1[1] and c1[2]<c1[1]) // 20拐頭向下
+plotshape(ma20_crossdown(), "20拐頭向下", style=shape.arrowdown, location=location.abovebar , text="20拐", color=color.silver, textcolor=color.black, transp=0)
+
+
+
+// 20,60交叉
+m20_crossover_m60() => crossover(c1, c2)
+m20_crossunder_m60() => crossunder(c1, c2)
+plotshape(m20_crossover_m60(),  "20,60交叉向上", style=shape.arrowup, location=location.belowbar , text="x\n\n\n20-60\n交叉", color=color.black, transp=0)
+plotshape(m20_crossunder_m60(), "20,60交叉向下", style=shape.arrowdown, location=location.abovebar , text="20-60\n交叉\n\n\nx", color=color.black, transp=0)
+
+
+// 20,120交叉
+m20_crossover_m120() => crossover(c1, c3)
+m20_crossunder_m120() => crossunder(c1, c3)
+plotshape(m20_crossover_m120(), "20,120交叉向上", style=shape.arrowup, location=location.belowbar , text="x\n\n\n20-120\n交叉", color=color.black, transp=0)
+plotshape(m20_crossunder_m120(), "20,120交叉向下", style=shape.arrowdown, location=location.abovebar , text="20-120\n交叉\n\n\nx", color=color.black, transp=0)
+
+
+// 60,120交叉
+m60_crossover_m120() => crossover(c2, c3)
+m60_crossunder_m120() => crossunder(c2, c3)
+plotshape(m60_crossover_m120(), "60,120交叉向上", style=shape.arrowup, location=location.belowbar , text="x\n\n\n60-120\n交叉", color=color.black, transp=0)
+plotshape(m60_crossunder_m120(), "60,120交叉向下", style=shape.arrowdown, location=location.abovebar , text="60-120\n交叉\n\n\nx", color=color.black, transp=0)
